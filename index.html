@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2811308505659881"
-     crossorigin="anonymous"></script>
-    <title>News Scraper App with Pexels</title>
+    <title>Latest News </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -48,12 +46,6 @@
         }
         #mySidebar a:hover {
             color: white;
-        }
-        .closebtn {
-            font-size: 30px;
-            position: absolute;
-            top: 0;
-            right: 25px;
         }
         .timeline-container {
             padding: 20px;
@@ -228,6 +220,7 @@
                 document.getElementById('timeline').innerHTML = 'Failed to load news.';
             });
     }
+
     // Function to fetch images from Pexels API based on the search term (news title)
     function fetchImageFromPexels(query) {
         return fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=1`, {
@@ -280,6 +273,11 @@
     // Close the sidebar menu
     function closeSidebar() {
         document.getElementById("mySidebar").style.width = "0";
+    }
+
+    // Automatically load World news on page load
+    window.onload = () => {
+        fetchNews('World');
     }
 </script>
 
