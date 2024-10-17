@@ -1,242 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Stay updated with the latest news from categories like Business, Sports, Technology, and Health. Get real-time headlines with images and engaging content.">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Latest News - Stay Updated</title>
-  <style>
-    /* Global Styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      line-height: 1.6;
-    }
-
-    header {
-      background-color: #6a0dad; /* Purple theme color */
-      color: white;
-      text-align: center;
-      padding: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
-    nav {
-      background-color: #4b0082;
-      padding: 10px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    nav ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    nav ul li {
-      margin: 5px 20px;
-    }
-
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-
-    nav ul li a:hover {
-      color: #ffccff;
-    }
-
-    /* Main Content Area */
-    .news-container {
-      margin: 20px auto;
-      max-width: 1200px;
-      padding: 10px;
-    }
-
-    .category-heading {
-      font-size: 1.8rem;
-      margin: 20px 0 10px 0;
-      color: #6a0dad;
-      text-align: center;
-    }
-
-    .news-article {
-      background-color: white;
-      margin-bottom: 20px;
-      padding: 15px;
-      border-radius: 5px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      animation: fadeInUp 0.5s ease-in-out;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .news-article img {
-      width: 100%;
-      max-width: 400px;
-      height: auto;
-      border-radius: 5px;
-      margin-bottom: 15px;
-    }
-
-    .news-article-content {
-      text-align: center;
-    }
-
-    .news-article h2 {
-      margin: 10px 0 10px 0;
-      font-size: 1.5rem;
-    }
-
-    .news-article a {
-      color: #333;
-      text-decoration: none;
-    }
-
-    .news-article a:hover {
-      color: #6a0dad;
-    }
-
-    .news-article p {
-      color: #555;
-    }
-
-    .loading {
-      text-align: center;
-      font-size: 18px;
-      padding: 20px;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .news-container {
-        padding: 10px;
-      }
-
-      .news-article img {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .news-article h2 {
-        font-size: 1.2rem;
-      }
-
-      nav ul {
-        flex-direction: column;
-      }
-
-      nav ul li {
-        margin: 10px 0;
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Scraper App with Pexels</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        header {
+            background-color: lightseagreen;
+            padding: 10px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+        #mySidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        #mySidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        #mySidebar a:hover {
+            color: white;
+        }
+        .closebtn {
+            font-size: 30px;
+            position: absolute;
+            top: 0;
+            right: 25px;
+        }
+        .timeline-container {
+            padding: 20px;
+        }
+        .stories-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        .story-item {
+            margin-right: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            width: 200px;
+            cursor: pointer;
+        }
+        .story-item img {
+            width: 100%;
+            border-radius: 5px 5px 0 0;
+        }
+        .story-title {
+            padding: 10px;
+            font-weight: bold;
+        }
+        .news-article {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .news-article img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .news-article h3 {
+            margin: 0;
+        }
+        .news-article p {
+            margin: 5px 0;
+        }
+        .news-article a {
+            text-decoration: none;
+            color: lightseagreen;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .modal-content img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .modal-content h3 {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Header Section -->
-  <header>
-    <h1>Latest News</h1>
-  </header>
+<header>
+    <span class="hamburger" onclick="openSidebar()">&#9776;</span>
+    <h2>News Scraper App with Pexels</h2>
+</header>
 
-  <!-- Navigation Section -->
-  <nav>
-    <ul>
-      <li><a href="#" onclick="fetchNews('business')">Business</a></li>
-      <li><a href="#" onclick="fetchNews('sports')">Sports</a></li>
-      <li><a href="#" onclick="fetchNews('technology')">Technology</a></li>
-      <li><a href="#" onclick="fetchNews('health')">Health</a></li>
-    </ul>
-  </nav>
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
+    <a href="#" onclick="fetchNews('World')">World</a>
+    <a href="#" onclick="fetchNews('Technology')">Technology</a>
+    <a href="#" onclick="fetchNews('Sports')">Sports</a>
+    <a href="#" onclick="fetchNews('Health')">Health</a>
+    <a href="#" onclick="fetchNews('Science')">Science</a>
+    <a href="#" onclick="fetchNews('Business')">Business</a>
+    <a href="#" onclick="fetchNews('Entertainment')">Entertainment</a>
+    <a href="#" onclick="fetchNews('Lifestyle')">Lifestyle</a>
+</div>
 
-  <!-- Main Content Section -->
-  <main class="news-container" id="news-container">
-    <div class="loading">Loading news...</div>
-  </main>
+<div class="timeline-container">
+    <div class="stories-container" id="stories-container"></div>
+    <div id="timeline"></div>
+</div>
 
-  <!-- Footer Section (Optional) -->
-  <footer style="text-align: center; padding: 20px; background-color: #6a0dad; color: white;">
-    <p>&copy; 2024 Latest News. All rights reserved.</p>
-  </footer>
+<script>
+    const apiKey = 'NiVHvueLaoALYd41z3fyKZwNBFrWAd3Kqsj8GX14TyYfM0jP1rtmJdMH'; // Replace with your actual Pexels API key
 
-  <script>
-    const apiKey = '87a39489a54644baa5f855487cada27c';
-    const newsContainer = document.getElementById('news-container');
+    const rssFeeds = {
+        'World': 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
+        'Technology': 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',
+        'Sports': 'https://rss.nytimes.com/services/xml/rss/nyt/Sports.xml',
+        'Health': 'https://rss.nytimes.com/services/xml/rss/nyt/Health.xml',
+        'Science': 'https://rss.nytimes.com/services/xml/rss/nyt/Science.xml',
+        'Business': 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml',
+        'Entertainment': 'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml',
+        'Lifestyle': 'https://rss.nytimes.com/services/xml/rss/nyt/Health.xml'
+    };
 
-    async function fetchNews(category) {
-      try {
-        // Clear the current news and display loading message
-        newsContainer.innerHTML = '<div class="loading">Loading news...</div>';
-        
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${apiKey}`);
-        const data = await response.json();
+    function fetchNews(category) {
+        const rssUrl = rssFeeds[category];
+        fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`)
+            .then(response => response.json())
+            .then(data => {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, "text/xml");
+                const items = xmlDoc.querySelectorAll("item");
 
-        if (data.status === 'ok') {
-          displayNews(data.articles, category);
-        } else {
-          newsContainer.innerHTML = '<p>Error fetching news</p>';
-        }
-      } catch (error) {
-        newsContainer.innerHTML = '<p>Failed to load news</p>';
-      }
+                // Clear previous stories and timeline
+                const storiesContainer = document.getElementById('stories-container');
+                const timelineContainer = document.getElementById('timeline');
+                storiesContainer.innerHTML = '';
+                timelineContainer.innerHTML = '';
+
+                // Display the first 5 items as stories
+                for (let i = 0; i < Math.min(items.length, 5); i++) {
+                    const item = items[i];
+                    const title = item.querySelector("title").textContent;
+
+                    // Fetch Pexels image based on the title
+                    fetchImageFromPexels(title).then(media => {
+                        const storyItem = document.createElement('div');
+                        storyItem.className = 'story-item';
+                        storyItem.onclick = () => {
+                            openStoryModal(title, media, item.querySelector("link").textContent);
+                        };
+                        storyItem.innerHTML = `
+                            <img src="${media}" alt="${title}">
+                            <div class="story-title">${title}</div>
+                        `;
+                        storiesContainer.appendChild(storyItem);
+                    });
+                }
+
+                // Display the remaining items as news articles
+                for (let i = 5; i < items.length; i++) {
+                    const item = items[i];
+                    const title = item.querySelector("title").textContent;
+                    const description = item.querySelector("description").textContent;
+                    const link = item.querySelector("link").textContent;
+
+                    // Fetch Pexels image based on the title
+                    fetchImageFromPexels(title).then(media => {
+                        const newsArticle = document.createElement('div');
+                        newsArticle.className = 'news-article';
+                        newsArticle.innerHTML = `
+                            <img src="${media}" alt="${title}">
+                            <h3>${title}</h3>
+                            <p>${description}</p>
+                            <a href="${link}" target="_blank">Read more</a>
+                        `;
+                        timelineContainer.appendChild(newsArticle);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching news:', error);
+                document.getElementById('timeline').innerHTML = 'Failed to load news.';
+            });
+    }
+    // Function to fetch images from Pexels API based on the search term (news title)
+    function fetchImageFromPexels(query) {
+        return fetch(`https://api.pexels.com/v1/search?query=${query}&per_page=1`, {
+            headers: {
+                Authorization: apiKey
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.photos.length > 0) {
+                return data.photos[0].src.medium; // Return the medium-sized image URL
+            } else {
+                return 'https://via.placeholder.com/200?text=No+Image'; // Fallback if no image is found
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching image from Pexels:', error);
+            return 'https://via.placeholder.com/200?text=No+Image'; // Fallback in case of error
+        });
     }
 
-    function displayNews(articles, category) {
-      // Clear the loading message
-      newsContainer.innerHTML = '';
-
-      // Create heading for each category
-      const categoryHeading = document.createElement('h2');
-      categoryHeading.classList.add('category-heading');
-      categoryHeading.textContent = category.charAt(0).toUpperCase() + category.slice(1);
-      newsContainer.appendChild(categoryHeading);
-
-      // Loop through articles and display them
-      articles.forEach(article => {
-        const newsItem = document.createElement('article');
-        newsItem.classList.add('news-article');
-
-        newsItem.innerHTML = `
-          <img src="${article.urlToImage || 'https://via.placeholder.com/400x200'}" alt="${article.title}">
-          <div class="news-article-content">
-            <h2><a href="${article.url}" target="_blank">${article.title}</a></h2>
-            <p>${article.description || 'No description available.'}</p>
-          </div>
+    // Open the modal to display the story with the image and link
+    function openStoryModal(title, imageUrl, link) {
+        const modalHTML = `
+            <div class="modal" onclick="closeModal()">
+                <div class="modal-content" onclick="event.stopPropagation()">
+                    <span class="closebtn" onclick="closeModal()">&times;</span>
+                    <img src="${imageUrl}" alt="${title}">
+                    <h3>${title}</h3>
+                    <a href="${link}" target="_blank">Read more</a>
+                </div>
+            </div>
         `;
-
-        newsContainer.appendChild(newsItem);
-      });
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
     }
 
-    // Load default category (Business) on page load
-    fetchNews('business');
-  </script>
+    // Close the modal
+    function closeModal() {
+        const modal = document.querySelector('.modal');
+        if (modal) {
+            modal.remove();
+        }
+    }
+
+    // Open the sidebar menu
+    function openSidebar() {
+        document.getElementById("mySidebar").style.width = "250px";
+    }
+
+    // Close the sidebar menu
+    function closeSidebar() {
+        document.getElementById("mySidebar").style.width = "0";
+    }
+</script>
 
 </body>
 </html>
